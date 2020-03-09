@@ -1,11 +1,11 @@
 import React from "react";
-import Product from "./Product";
 import MacbookPro from "../assets/macbook.jpeg";
 import Iphone11Pro from "../assets/iphone11pro.jpeg";
 import Airpods from "../assets/airpods.jpeg";
 import IpadPro from "../assets/ipadPro.jpeg";
+import { RouteComponentProps } from 'react-router-dom';
 
-const products = [
+const productsDetails = [
   {
     id: 0,
     name: 'Macbook Pro',
@@ -36,20 +36,38 @@ const products = [
   }
 ]
 
-class ProductsList extends React.Component {
+interface MatchProps {
+  id: string
+}
+
+interface ProductDetailsProps extends RouteComponentProps<MatchProps> {
+}
+
+class ProductDetails extends React.Component<ProductDetailsProps> {
+  product = productsDetails.find(product => product.id === parseInt(this.props.match.params.id));
+
   render() {
-    return (
-      <section className="section">
-        <div className="columns">
-          {products.map((product) =>
-            <div key={product.id.toString()} className="column is-one-fifth has-text-centered">
-              <Product id={product.id} name={product.name} description={product.description} price={product.price} image={product.image} />
-            </div>)
-          }
+    if (this.product) {
+      return (
+        <div className="card">
+          <div className="card-content">
+            <figure className="image container is-128x128">
+              <img src={this.product.image} alt={this.product.image} />
+            </figure>
+          </div>
+          <div className="card-content">
+            <p className="title is-4">{this.product.name}</p>
+            <p className="subtitle is-6">${this.product.price}</p>
+            <p>{this.product.description}</p>
+            <button className="button is-primary is-rounded">Add to cart</button>
+          </div>
         </div>
-      </section>
-    );
+      );
+    } else {
+      return (<div></div>);
+    }
   }
 }
 
-export default ProductsList;
+
+export default ProductDetails;

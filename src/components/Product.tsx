@@ -1,6 +1,9 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
-type ProductProps = {
+type ProductProps = RouteComponentProps & {
+  id: number
   name: string,
   description: string,
   price: number,
@@ -19,11 +22,11 @@ class Product extends React.Component<ProductProps> {
         <div className="card-content">
           <p className="title is-4">{this.props.name}</p>
           <p className="subtitle is-6">${this.props.price}</p>
-          <button className="button is-primary is-rounded">Add to Cart</button>
+          <button className="button is-primary is-rounded" onClick={() => this.props.history.push(`/products/${this.props.id}`)}>Details</button>
         </div>
       </div>
     );
   }
 }
 
-export default Product;
+export default withRouter(Product);
