@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 type ProductProps = RouteComponentProps & {
   id: number
   name: string,
-  description: string,
   price: number,
   image: string
 }

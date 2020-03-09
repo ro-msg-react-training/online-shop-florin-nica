@@ -9,28 +9,28 @@ const productsDetails = [
   {
     id: 0,
     name: 'Macbook Pro',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     price: 1550,
     image: MacbookPro
   },
   {
     id: 1,
     name: 'Iphone 11 Pro',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     price: 1000,
     image: Iphone11Pro
   },
   {
     id: 2,
     name: 'Airpods',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     price: 200,
     image: Airpods
   },
   {
     id: 3,
     name: 'Ipad Pro',
-    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     price: 800,
     image: IpadPro
   }
@@ -49,17 +49,29 @@ class ProductDetails extends React.Component<ProductDetailsProps> {
   render() {
     if (this.product) {
       return (
-        <div className="card">
-          <div className="card-content">
-            <figure className="image container is-128x128">
-              <img src={this.product.image} alt={this.product.image} />
-            </figure>
-          </div>
-          <div className="card-content">
-            <p className="title is-4">{this.product.name}</p>
-            <p className="subtitle is-6">${this.product.price}</p>
-            <p>{this.product.description}</p>
-            <button className="button is-primary is-rounded">Add to cart</button>
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <div className="columns is-vcentered">
+              <div className="column is-4">
+                <figure className="image is-1by1">
+                  <img src={this.product.image} alt={this.product.image} />
+                </figure>
+              </div>
+              <div className="column is-6 is-offset-1">
+                <h1 className="title is-2">
+                  {this.product.name}
+                </h1>
+                <h2 className="subtitle is-4">
+                  {this.product.description}
+                </h2>
+                <br />
+                <p className="has-text-centered">
+                  <button className="button is-medium is-primary is-outlined">
+                    Add to cart
+                  </button>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -68,6 +80,5 @@ class ProductDetails extends React.Component<ProductDetailsProps> {
     }
   }
 }
-
 
 export default ProductDetails;
