@@ -20,8 +20,16 @@ class ProductsList extends Component<ProductsListProps, ProductsListState> {
 
   componentDidMount() {
     fetch(PRODUCTS_LIST_URL)
-      .then(response => response.json())
-      .then(data => this.setState({ products: data }))
+      .then((response) => {
+        if (!response.ok) alert("error");
+        else return response.json();
+      })
+      .then((data) => {
+        this.setState({ products: data });
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
   }
 
   render() {

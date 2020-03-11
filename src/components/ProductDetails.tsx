@@ -1,40 +1,7 @@
 import React, { Component } from "react";
-import MacbookPro from "../assets/macbook.jpeg";
-import Iphone11Pro from "../assets/iphone11pro.jpeg";
-import Airpods from "../assets/airpods.jpeg";
-import IpadPro from "../assets/ipadPro.jpeg";
 import { RouteComponentProps } from 'react-router-dom';
 
-const productsDetails = [
-  {
-    id: 0,
-    name: 'Macbook Pro',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    price: 1550,
-    image: MacbookPro
-  },
-  {
-    id: 1,
-    name: 'Iphone 11 Pro',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    price: 1000,
-    image: Iphone11Pro
-  },
-  {
-    id: 2,
-    name: 'Airpods',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    price: 200,
-    image: Airpods
-  },
-  {
-    id: 3,
-    name: 'Ipad Pro',
-    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    price: 800,
-    image: IpadPro
-  }
-]
+const PRODUCT_DETAILS_URL = "http://localhost:4000/products/"
 
 type MatchProps = {
   id: string
@@ -43,33 +10,74 @@ type MatchProps = {
 type ProductDetailsProps = RouteComponentProps<MatchProps> & {
 }
 
-class ProductDetails extends Component<ProductDetailsProps> {
-  product = productsDetails.find(product => product.id === parseInt(this.props.match.params.id));
+type ProductDetailsState = {
+  product: any
+}
+
+class ProductDetails extends Component<ProductDetailsProps, ProductDetailsState> {
+  constructor(props: ProductDetailsProps) {
+    super(props);
+    this.state = {
+      product: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(PRODUCT_DETAILS_URL + this.props.match.params.id)
+      .then((response) => {
+        if (response.ok) { return response.json() }
+        else if (response.status === 404) { alert("product not found") }
+        else alert("error");
+      })
+      .then((data) => {
+        this.setState({ product: data });
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
+  }
+
+  deleteProduct() {
+    fetch(PRODUCT_DETAILS_URL + this.props.match.params.id, {
+      method: 'DELETE'
+    })
+      .then((response) => {
+        if (response.ok) { this.props.history.push('/products') }
+        else if (response.status === 404) { alert("product not found") }
+        else alert("error");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
+  }
 
   render() {
-    if (this.product) {
+    if (this.state.product) {
       return (
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="columns is-vcentered">
               <div className="column is-4">
                 <figure className="image is-1by1">
-                  <img src={this.product.image} alt={this.product.image} />
+                  <img src={this.state.product.image} alt={this.state.product.image} />
                 </figure>
               </div>
               <div className="column is-6 is-offset-1">
                 <h1 className="title is-2">
-                  {this.product.name}
+                  {this.state.product.name}
                 </h1>
                 <h2 className="subtitle is-4">
-                  {this.product.description}
+                  {this.state.product.description}
                 </h2>
                 <br />
-                <p className="has-text-centered">
-                  <button className="button is-medium is-primary is-outlined">
+                <div className="container has-text-centered">
+                  <button className="button is-medium is-primary">
                     Add to cart
                   </button>
-                </p>
+                  <button className="button is-medium is-primary is-outlined" onClick={() => this.deleteProduct()}>
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
