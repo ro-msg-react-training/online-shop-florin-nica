@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import MacbookPro from "../assets/macbook.jpeg";
 import Iphone11Pro from "../assets/iphone11pro.jpeg";
 import Airpods from "../assets/airpods.jpeg";
@@ -36,14 +36,14 @@ const productsDetails = [
   }
 ]
 
-interface MatchProps {
+type MatchProps = {
   id: string
 }
 
-interface ProductDetailsProps extends RouteComponentProps<MatchProps> {
+type ProductDetailsProps = RouteComponentProps<MatchProps> & {
 }
 
-class ProductDetails extends React.Component<ProductDetailsProps> {
+class ProductDetails extends Component<ProductDetailsProps> {
   product = productsDetails.find(product => product.id === parseInt(this.props.match.params.id));
 
   render() {
