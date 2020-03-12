@@ -4,6 +4,7 @@ import ProductsList from './components/ProductsList';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import Navbar from './components/Navbar';
+import ShoppingCart from './components/ShoppingCart';
 
 class App extends Component {
   render() {
@@ -17,6 +18,9 @@ class App extends Component {
           } />
           <Route path="/products">
             <ProductsList />
+          </Route>
+          <Route path="/cart">
+            <ShoppingCart />
           </Route>
           <Route path="/">
             <Redirect to='/products' />
