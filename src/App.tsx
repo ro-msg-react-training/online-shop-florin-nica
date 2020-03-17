@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
-import ProductsList from './components/ProductsList';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import ProductDetails from './components/ProductDetails';
 import Navbar from './components/Navbar';
+import ProductDetails from './components/ProductDetails';
+import ProductsList from './components/ProductsList';
 import ShoppingCart from './components/ShoppingCart';
+import UpdateProduct from './components/UpdateProduct';
+import NewProduct from './components/NewProduct';
 
 class App extends Component {
   render() {
@@ -12,6 +14,12 @@ class App extends Component {
       <Router>
         <Navbar />
         <Switch>
+          <Route path='/products/edit'>
+            <UpdateProduct />
+          </Route >
+          <Route path='/products/new'>
+            <NewProduct />
+          </Route >
           <Route path='/products/:id' render={(matchProps) =>
             <ProductDetails
               {...matchProps} />

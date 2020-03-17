@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
-type ProductProps = RouteComponentProps & {
-  id: number
-  name: string,
-  category: string,
-  price: number
+interface ProductProps {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
 }
 
-class Product extends Component<ProductProps> {
+type Props = RouteComponentProps & ProductProps;
+
+class Product extends Component<Props> {
   render() {
     return (
       <div className="card">

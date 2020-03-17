@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import logo from '../assets/logo_msg.svg';
 
-type NavbarProps = RouteComponentProps & {}
+type NavbarProps = RouteComponentProps
 
 class Navbar extends Component<NavbarProps> {
   render() {
